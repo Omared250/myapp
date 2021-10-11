@@ -11,8 +11,6 @@ const add = (req, res) => {
     res.send('The result for this operation is: ' + adding.toString())
 }
 
-app.get('/add', add); 
-
 // substracting two values
 const substract = (req, res) => {
     const value1 = parseInt(req.query.value1);
@@ -20,8 +18,6 @@ const substract = (req, res) => {
     const substracting = value1 - value2;
     res.send('The result for this operation is: ' + substracting.toString())
 }
-
-app.get('/substract', substract);
 
 // multiplying two values
 const multiply = (req, res) => {
@@ -31,8 +27,6 @@ const multiply = (req, res) => {
     res.send('The result for this operation is: ' + multiplying.toString())
 }
 
-app.get('/multiply', multiply);
-
 // dividing two value
 const divide = (req, res) => {
     const value1 = parseInt(req.query.value1);
@@ -40,8 +34,6 @@ const divide = (req, res) => {
     const dividing = value1 / value2;
     res.send('The result for this operation is: ' + dividing.toString())
 }
-
-app.get('/divide', divide);
 
 // making end points with parameters
 
@@ -52,16 +44,12 @@ const addParameters = (req, res) => {
     res.send('The result for this operation is: ' + (value1 + value2).toString());
 }
 
-app.get('/add/:value1/:value2', addParameters)
-
 // substracting two values with paramaters
 const substractParameters = (req, res) => {
     const value1 = parseInt(req.params.value1);
     const value2 = parseInt(req.params.value2);
     res.send('The result for this operation is: ' + (value1 - value2).toString());
 }
-
-app.get('/substract/:value1/:value2', substractParameters)
 
 // miltipliying two values with paramaters
 const multiplyParameters = (req, res) => {
@@ -70,8 +58,6 @@ const multiplyParameters = (req, res) => {
     res.send('The result for this operation is: ' + (value1 * value2).toString());
 }
 
-app.get('/multiply/:value1/:value2', multiplyParameters)
-
 // dividing two values with paramaters
 const divideParameters = (req, res) => {
     const value1 = parseInt(req.params.value1);
@@ -79,7 +65,21 @@ const divideParameters = (req, res) => {
     res.send('The result for this operation is: ' + (value1 / value2).toString());
 }
 
+//making a logger
+const myLogger = (req, res, next) => {
+    const visitTime = new Date();
+    console.log(`visited omar at ${visitTime.toLocaleString()}`);
+    next();
+};
+app.use(myLogger);
+
+app.get('/add', add);
+app.get('/substract', substract);
+app.get('/multiply', multiply);
+app.get('/divide', divide);
+app.get('/add/:value1/:value2', addParameters)
+app.get('/substract/:value1/:value2', substractParameters)
+app.get('/multiply/:value1/:value2', multiplyParameters)
 app.get('/divide/:value1/:value2', divideParameters)
- 
 
 app.listen(3000, () => console.log("Server is up and running"))
