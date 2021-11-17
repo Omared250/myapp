@@ -83,3 +83,4 @@ app.get('/multiply/:value1/:value2', multiplyParameters)
 app.get('/divide/:value1/:value2', divideParameters)
 
 app.listen(3000, () => console.log("Server is up and running"))
+
